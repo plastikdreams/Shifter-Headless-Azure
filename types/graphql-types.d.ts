@@ -720,6 +720,10 @@ export type Query = {
   allWordpressPage: Wordpress__PageConnection;
   wordpressPost?: Maybe<Wordpress__Post>;
   allWordpressPost: Wordpress__PostConnection;
+  wordpressAcfPages?: Maybe<Wordpress__Acf_Pages>;
+  allWordpressAcfPages: Wordpress__Acf_PagesConnection;
+  wordpressAcfPosts?: Maybe<Wordpress__Acf_Posts>;
+  allWordpressAcfPosts: Wordpress__Acf_PostsConnection;
   wordpressSiteMetadata?: Maybe<Wordpress__Site_Metadata>;
   allWordpressSiteMetadata: Wordpress__Site_MetadataConnection;
   siteBuildMetadata?: Maybe<SiteBuildMetadata>;
@@ -852,8 +856,6 @@ export type QueryAllSitePageArgs = {
 export type QuerySiteArgs = {
   buildTime?: Maybe<DateQueryOperatorInput>;
   siteMetadata?: Maybe<SiteSiteMetadataFilterInput>;
-  port?: Maybe<IntQueryOperatorInput>;
-  host?: Maybe<StringQueryOperatorInput>;
   polyfill?: Maybe<BooleanQueryOperatorInput>;
   pathPrefix?: Maybe<StringQueryOperatorInput>;
   id?: Maybe<StringQueryOperatorInput>;
@@ -911,8 +913,8 @@ export type QueryWordpressPageArgs = {
   ping_status?: Maybe<StringQueryOperatorInput>;
   template?: Maybe<StringQueryOperatorInput>;
   _links?: Maybe<Wordpress__Page_LinksFilterInput>;
-  path?: Maybe<StringQueryOperatorInput>;
   parent_element?: Maybe<Wordpress__PageFilterInput>;
+  path?: Maybe<StringQueryOperatorInput>;
 };
 
 
@@ -956,6 +958,40 @@ export type QueryWordpressPostArgs = {
 export type QueryAllWordpressPostArgs = {
   filter?: Maybe<Wordpress__PostFilterInput>;
   sort?: Maybe<Wordpress__PostSortInput>;
+  skip?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars['Int']>;
+};
+
+
+export type QueryWordpressAcfPagesArgs = {
+  id?: Maybe<StringQueryOperatorInput>;
+  parent?: Maybe<NodeFilterInput>;
+  children?: Maybe<NodeFilterListInput>;
+  internal?: Maybe<InternalFilterInput>;
+  wordpress_id?: Maybe<IntQueryOperatorInput>;
+};
+
+
+export type QueryAllWordpressAcfPagesArgs = {
+  filter?: Maybe<Wordpress__Acf_PagesFilterInput>;
+  sort?: Maybe<Wordpress__Acf_PagesSortInput>;
+  skip?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars['Int']>;
+};
+
+
+export type QueryWordpressAcfPostsArgs = {
+  id?: Maybe<StringQueryOperatorInput>;
+  parent?: Maybe<NodeFilterInput>;
+  children?: Maybe<NodeFilterListInput>;
+  internal?: Maybe<InternalFilterInput>;
+  wordpress_id?: Maybe<IntQueryOperatorInput>;
+};
+
+
+export type QueryAllWordpressAcfPostsArgs = {
+  filter?: Maybe<Wordpress__Acf_PostsFilterInput>;
+  sort?: Maybe<Wordpress__Acf_PostsSortInput>;
   skip?: Maybe<Scalars['Int']>;
   limit?: Maybe<Scalars['Int']>;
 };
@@ -1025,8 +1061,6 @@ export type QueryAllSitePluginArgs = {
 export type Site = Node & {
   buildTime?: Maybe<Scalars['Date']>;
   siteMetadata?: Maybe<SiteSiteMetadata>;
-  port?: Maybe<Scalars['Int']>;
-  host?: Maybe<Scalars['String']>;
   polyfill?: Maybe<Scalars['Boolean']>;
   pathPrefix?: Maybe<Scalars['String']>;
   id: Scalars['ID'];
@@ -1228,8 +1262,6 @@ export type SiteFieldsEnum =
   'buildTime' |
   'siteMetadata___postURLPrefix' |
   'siteMetadata___pageURLPrefix' |
-  'port' |
-  'host' |
   'polyfill' |
   'pathPrefix' |
   'id' |
@@ -1322,8 +1354,6 @@ export type SiteFieldsEnum =
 export type SiteFilterInput = {
   buildTime?: Maybe<DateQueryOperatorInput>;
   siteMetadata?: Maybe<SiteSiteMetadataFilterInput>;
-  port?: Maybe<IntQueryOperatorInput>;
-  host?: Maybe<StringQueryOperatorInput>;
   polyfill?: Maybe<BooleanQueryOperatorInput>;
   pathPrefix?: Maybe<StringQueryOperatorInput>;
   id?: Maybe<StringQueryOperatorInput>;
@@ -2106,6 +2136,298 @@ export type Wordpress__Acf_OptionsSortInput = {
   order?: Maybe<Array<Maybe<SortOrderEnum>>>;
 };
 
+export type Wordpress__Acf_Pages = Node & {
+  id: Scalars['ID'];
+  parent?: Maybe<Node>;
+  children: Array<Node>;
+  internal: Internal;
+  wordpress_id?: Maybe<Scalars['Int']>;
+};
+
+export type Wordpress__Acf_PagesConnection = {
+  totalCount: Scalars['Int'];
+  edges: Array<Wordpress__Acf_PagesEdge>;
+  nodes: Array<Wordpress__Acf_Pages>;
+  pageInfo: PageInfo;
+  distinct: Array<Scalars['String']>;
+  group: Array<Wordpress__Acf_PagesGroupConnection>;
+};
+
+
+export type Wordpress__Acf_PagesConnectionDistinctArgs = {
+  field: Wordpress__Acf_PagesFieldsEnum;
+};
+
+
+export type Wordpress__Acf_PagesConnectionGroupArgs = {
+  skip?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars['Int']>;
+  field: Wordpress__Acf_PagesFieldsEnum;
+};
+
+export type Wordpress__Acf_PagesEdge = {
+  next?: Maybe<Wordpress__Acf_Pages>;
+  node: Wordpress__Acf_Pages;
+  previous?: Maybe<Wordpress__Acf_Pages>;
+};
+
+export type Wordpress__Acf_PagesFieldsEnum = 
+  'id' |
+  'parent___id' |
+  'parent___parent___id' |
+  'parent___parent___parent___id' |
+  'parent___parent___parent___children' |
+  'parent___parent___children' |
+  'parent___parent___children___id' |
+  'parent___parent___children___children' |
+  'parent___parent___internal___content' |
+  'parent___parent___internal___contentDigest' |
+  'parent___parent___internal___description' |
+  'parent___parent___internal___fieldOwners' |
+  'parent___parent___internal___ignoreType' |
+  'parent___parent___internal___mediaType' |
+  'parent___parent___internal___owner' |
+  'parent___parent___internal___type' |
+  'parent___children' |
+  'parent___children___id' |
+  'parent___children___parent___id' |
+  'parent___children___parent___children' |
+  'parent___children___children' |
+  'parent___children___children___id' |
+  'parent___children___children___children' |
+  'parent___children___internal___content' |
+  'parent___children___internal___contentDigest' |
+  'parent___children___internal___description' |
+  'parent___children___internal___fieldOwners' |
+  'parent___children___internal___ignoreType' |
+  'parent___children___internal___mediaType' |
+  'parent___children___internal___owner' |
+  'parent___children___internal___type' |
+  'parent___internal___content' |
+  'parent___internal___contentDigest' |
+  'parent___internal___description' |
+  'parent___internal___fieldOwners' |
+  'parent___internal___ignoreType' |
+  'parent___internal___mediaType' |
+  'parent___internal___owner' |
+  'parent___internal___type' |
+  'children' |
+  'children___id' |
+  'children___parent___id' |
+  'children___parent___parent___id' |
+  'children___parent___parent___children' |
+  'children___parent___children' |
+  'children___parent___children___id' |
+  'children___parent___children___children' |
+  'children___parent___internal___content' |
+  'children___parent___internal___contentDigest' |
+  'children___parent___internal___description' |
+  'children___parent___internal___fieldOwners' |
+  'children___parent___internal___ignoreType' |
+  'children___parent___internal___mediaType' |
+  'children___parent___internal___owner' |
+  'children___parent___internal___type' |
+  'children___children' |
+  'children___children___id' |
+  'children___children___parent___id' |
+  'children___children___parent___children' |
+  'children___children___children' |
+  'children___children___children___id' |
+  'children___children___children___children' |
+  'children___children___internal___content' |
+  'children___children___internal___contentDigest' |
+  'children___children___internal___description' |
+  'children___children___internal___fieldOwners' |
+  'children___children___internal___ignoreType' |
+  'children___children___internal___mediaType' |
+  'children___children___internal___owner' |
+  'children___children___internal___type' |
+  'children___internal___content' |
+  'children___internal___contentDigest' |
+  'children___internal___description' |
+  'children___internal___fieldOwners' |
+  'children___internal___ignoreType' |
+  'children___internal___mediaType' |
+  'children___internal___owner' |
+  'children___internal___type' |
+  'internal___content' |
+  'internal___contentDigest' |
+  'internal___description' |
+  'internal___fieldOwners' |
+  'internal___ignoreType' |
+  'internal___mediaType' |
+  'internal___owner' |
+  'internal___type' |
+  'wordpress_id';
+
+export type Wordpress__Acf_PagesFilterInput = {
+  id?: Maybe<StringQueryOperatorInput>;
+  parent?: Maybe<NodeFilterInput>;
+  children?: Maybe<NodeFilterListInput>;
+  internal?: Maybe<InternalFilterInput>;
+  wordpress_id?: Maybe<IntQueryOperatorInput>;
+};
+
+export type Wordpress__Acf_PagesGroupConnection = {
+  totalCount: Scalars['Int'];
+  edges: Array<Wordpress__Acf_PagesEdge>;
+  nodes: Array<Wordpress__Acf_Pages>;
+  pageInfo: PageInfo;
+  field: Scalars['String'];
+  fieldValue?: Maybe<Scalars['String']>;
+};
+
+export type Wordpress__Acf_PagesSortInput = {
+  fields?: Maybe<Array<Maybe<Wordpress__Acf_PagesFieldsEnum>>>;
+  order?: Maybe<Array<Maybe<SortOrderEnum>>>;
+};
+
+export type Wordpress__Acf_Posts = Node & {
+  id: Scalars['ID'];
+  parent?: Maybe<Node>;
+  children: Array<Node>;
+  internal: Internal;
+  wordpress_id?: Maybe<Scalars['Int']>;
+};
+
+export type Wordpress__Acf_PostsConnection = {
+  totalCount: Scalars['Int'];
+  edges: Array<Wordpress__Acf_PostsEdge>;
+  nodes: Array<Wordpress__Acf_Posts>;
+  pageInfo: PageInfo;
+  distinct: Array<Scalars['String']>;
+  group: Array<Wordpress__Acf_PostsGroupConnection>;
+};
+
+
+export type Wordpress__Acf_PostsConnectionDistinctArgs = {
+  field: Wordpress__Acf_PostsFieldsEnum;
+};
+
+
+export type Wordpress__Acf_PostsConnectionGroupArgs = {
+  skip?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars['Int']>;
+  field: Wordpress__Acf_PostsFieldsEnum;
+};
+
+export type Wordpress__Acf_PostsEdge = {
+  next?: Maybe<Wordpress__Acf_Posts>;
+  node: Wordpress__Acf_Posts;
+  previous?: Maybe<Wordpress__Acf_Posts>;
+};
+
+export type Wordpress__Acf_PostsFieldsEnum = 
+  'id' |
+  'parent___id' |
+  'parent___parent___id' |
+  'parent___parent___parent___id' |
+  'parent___parent___parent___children' |
+  'parent___parent___children' |
+  'parent___parent___children___id' |
+  'parent___parent___children___children' |
+  'parent___parent___internal___content' |
+  'parent___parent___internal___contentDigest' |
+  'parent___parent___internal___description' |
+  'parent___parent___internal___fieldOwners' |
+  'parent___parent___internal___ignoreType' |
+  'parent___parent___internal___mediaType' |
+  'parent___parent___internal___owner' |
+  'parent___parent___internal___type' |
+  'parent___children' |
+  'parent___children___id' |
+  'parent___children___parent___id' |
+  'parent___children___parent___children' |
+  'parent___children___children' |
+  'parent___children___children___id' |
+  'parent___children___children___children' |
+  'parent___children___internal___content' |
+  'parent___children___internal___contentDigest' |
+  'parent___children___internal___description' |
+  'parent___children___internal___fieldOwners' |
+  'parent___children___internal___ignoreType' |
+  'parent___children___internal___mediaType' |
+  'parent___children___internal___owner' |
+  'parent___children___internal___type' |
+  'parent___internal___content' |
+  'parent___internal___contentDigest' |
+  'parent___internal___description' |
+  'parent___internal___fieldOwners' |
+  'parent___internal___ignoreType' |
+  'parent___internal___mediaType' |
+  'parent___internal___owner' |
+  'parent___internal___type' |
+  'children' |
+  'children___id' |
+  'children___parent___id' |
+  'children___parent___parent___id' |
+  'children___parent___parent___children' |
+  'children___parent___children' |
+  'children___parent___children___id' |
+  'children___parent___children___children' |
+  'children___parent___internal___content' |
+  'children___parent___internal___contentDigest' |
+  'children___parent___internal___description' |
+  'children___parent___internal___fieldOwners' |
+  'children___parent___internal___ignoreType' |
+  'children___parent___internal___mediaType' |
+  'children___parent___internal___owner' |
+  'children___parent___internal___type' |
+  'children___children' |
+  'children___children___id' |
+  'children___children___parent___id' |
+  'children___children___parent___children' |
+  'children___children___children' |
+  'children___children___children___id' |
+  'children___children___children___children' |
+  'children___children___internal___content' |
+  'children___children___internal___contentDigest' |
+  'children___children___internal___description' |
+  'children___children___internal___fieldOwners' |
+  'children___children___internal___ignoreType' |
+  'children___children___internal___mediaType' |
+  'children___children___internal___owner' |
+  'children___children___internal___type' |
+  'children___internal___content' |
+  'children___internal___contentDigest' |
+  'children___internal___description' |
+  'children___internal___fieldOwners' |
+  'children___internal___ignoreType' |
+  'children___internal___mediaType' |
+  'children___internal___owner' |
+  'children___internal___type' |
+  'internal___content' |
+  'internal___contentDigest' |
+  'internal___description' |
+  'internal___fieldOwners' |
+  'internal___ignoreType' |
+  'internal___mediaType' |
+  'internal___owner' |
+  'internal___type' |
+  'wordpress_id';
+
+export type Wordpress__Acf_PostsFilterInput = {
+  id?: Maybe<StringQueryOperatorInput>;
+  parent?: Maybe<NodeFilterInput>;
+  children?: Maybe<NodeFilterListInput>;
+  internal?: Maybe<InternalFilterInput>;
+  wordpress_id?: Maybe<IntQueryOperatorInput>;
+};
+
+export type Wordpress__Acf_PostsGroupConnection = {
+  totalCount: Scalars['Int'];
+  edges: Array<Wordpress__Acf_PostsEdge>;
+  nodes: Array<Wordpress__Acf_Posts>;
+  pageInfo: PageInfo;
+  field: Scalars['String'];
+  fieldValue?: Maybe<Scalars['String']>;
+};
+
+export type Wordpress__Acf_PostsSortInput = {
+  fields?: Maybe<Array<Maybe<Wordpress__Acf_PostsFieldsEnum>>>;
+  order?: Maybe<Array<Maybe<SortOrderEnum>>>;
+};
+
 export type Wordpress__Page = Node & {
   id: Scalars['ID'];
   parent?: Maybe<Node>;
@@ -2129,8 +2451,8 @@ export type Wordpress__Page = Node & {
   ping_status?: Maybe<Scalars['String']>;
   template?: Maybe<Scalars['String']>;
   _links?: Maybe<Wordpress__Page_Links>;
-  path?: Maybe<Scalars['String']>;
   parent_element?: Maybe<Wordpress__Page>;
+  path?: Maybe<Scalars['String']>;
 };
 
 
@@ -2156,9 +2478,9 @@ export type Wordpress__Page_Links = {
   author?: Maybe<Array<Maybe<Wordpress__Page_LinksAuthor>>>;
   replies?: Maybe<Array<Maybe<Wordpress__Page_LinksReplies>>>;
   version_history?: Maybe<Array<Maybe<Wordpress__Page_LinksVersion_History>>>;
+  up?: Maybe<Array<Maybe<Wordpress__Page_LinksUp>>>;
   wp_attachment?: Maybe<Array<Maybe<Wordpress__Page_LinksWp_Attachment>>>;
   curies?: Maybe<Array<Maybe<Wordpress__Page_LinksCuries>>>;
-  up?: Maybe<Array<Maybe<Wordpress__Page_LinksUp>>>;
 };
 
 export type Wordpress__Page_LinksAbout = {
@@ -2222,9 +2544,9 @@ export type Wordpress__Page_LinksFilterInput = {
   author?: Maybe<Wordpress__Page_LinksAuthorFilterListInput>;
   replies?: Maybe<Wordpress__Page_LinksRepliesFilterListInput>;
   version_history?: Maybe<Wordpress__Page_LinksVersion_HistoryFilterListInput>;
+  up?: Maybe<Wordpress__Page_LinksUpFilterListInput>;
   wp_attachment?: Maybe<Wordpress__Page_LinksWp_AttachmentFilterListInput>;
   curies?: Maybe<Wordpress__Page_LinksCuriesFilterListInput>;
-  up?: Maybe<Wordpress__Page_LinksUpFilterListInput>;
 };
 
 export type Wordpress__Page_LinksReplies = {
@@ -2439,16 +2761,15 @@ export type Wordpress__PageFieldsEnum =
   '_links___version_history' |
   '_links___version_history___count' |
   '_links___version_history___href' |
+  '_links___up' |
+  '_links___up___embeddable' |
+  '_links___up___href' |
   '_links___wp_attachment' |
   '_links___wp_attachment___href' |
   '_links___curies' |
   '_links___curies___name' |
   '_links___curies___href' |
   '_links___curies___templated' |
-  '_links___up' |
-  '_links___up___embeddable' |
-  '_links___up___href' |
-  'path' |
   'parent_element___id' |
   'parent_element___parent___id' |
   'parent_element___parent___parent___id' |
@@ -2519,16 +2840,15 @@ export type Wordpress__PageFieldsEnum =
   'parent_element____links___version_history' |
   'parent_element____links___version_history___count' |
   'parent_element____links___version_history___href' |
+  'parent_element____links___up' |
+  'parent_element____links___up___embeddable' |
+  'parent_element____links___up___href' |
   'parent_element____links___wp_attachment' |
   'parent_element____links___wp_attachment___href' |
   'parent_element____links___curies' |
   'parent_element____links___curies___name' |
   'parent_element____links___curies___href' |
   'parent_element____links___curies___templated' |
-  'parent_element____links___up' |
-  'parent_element____links___up___embeddable' |
-  'parent_element____links___up___href' |
-  'parent_element___path' |
   'parent_element___parent_element___id' |
   'parent_element___parent_element___parent___id' |
   'parent_element___parent_element___parent___children' |
@@ -2566,10 +2886,9 @@ export type Wordpress__PageFieldsEnum =
   'parent_element___parent_element____links___author' |
   'parent_element___parent_element____links___replies' |
   'parent_element___parent_element____links___version_history' |
+  'parent_element___parent_element____links___up' |
   'parent_element___parent_element____links___wp_attachment' |
   'parent_element___parent_element____links___curies' |
-  'parent_element___parent_element____links___up' |
-  'parent_element___parent_element___path' |
   'parent_element___parent_element___parent_element___id' |
   'parent_element___parent_element___parent_element___children' |
   'parent_element___parent_element___parent_element___wordpress_id' |
@@ -2589,7 +2908,10 @@ export type Wordpress__PageFieldsEnum =
   'parent_element___parent_element___parent_element___comment_status' |
   'parent_element___parent_element___parent_element___ping_status' |
   'parent_element___parent_element___parent_element___template' |
-  'parent_element___parent_element___parent_element___path';
+  'parent_element___parent_element___parent_element___path' |
+  'parent_element___parent_element___path' |
+  'parent_element___path' |
+  'path';
 
 export type Wordpress__PageFilterInput = {
   id?: Maybe<StringQueryOperatorInput>;
@@ -2614,8 +2936,8 @@ export type Wordpress__PageFilterInput = {
   ping_status?: Maybe<StringQueryOperatorInput>;
   template?: Maybe<StringQueryOperatorInput>;
   _links?: Maybe<Wordpress__Page_LinksFilterInput>;
-  path?: Maybe<StringQueryOperatorInput>;
   parent_element?: Maybe<Wordpress__PageFilterInput>;
+  path?: Maybe<StringQueryOperatorInput>;
 };
 
 export type Wordpress__PageGroupConnection = {
@@ -2683,6 +3005,7 @@ export type Wordpress__Post_Links = {
   author?: Maybe<Array<Maybe<Wordpress__Post_LinksAuthor>>>;
   replies?: Maybe<Array<Maybe<Wordpress__Post_LinksReplies>>>;
   version_history?: Maybe<Array<Maybe<Wordpress__Post_LinksVersion_History>>>;
+  predecessor_version?: Maybe<Array<Maybe<Wordpress__Post_LinksPredecessor_Version>>>;
   wp_attachment?: Maybe<Array<Maybe<Wordpress__Post_LinksWp_Attachment>>>;
   wp_term?: Maybe<Array<Maybe<Wordpress__Post_LinksWp_Term>>>;
   curies?: Maybe<Array<Maybe<Wordpress__Post_LinksCuries>>>;
@@ -2750,10 +3073,25 @@ export type Wordpress__Post_LinksFilterInput = {
   author?: Maybe<Wordpress__Post_LinksAuthorFilterListInput>;
   replies?: Maybe<Wordpress__Post_LinksRepliesFilterListInput>;
   version_history?: Maybe<Wordpress__Post_LinksVersion_HistoryFilterListInput>;
+  predecessor_version?: Maybe<Wordpress__Post_LinksPredecessor_VersionFilterListInput>;
   wp_attachment?: Maybe<Wordpress__Post_LinksWp_AttachmentFilterListInput>;
   wp_term?: Maybe<Wordpress__Post_LinksWp_TermFilterListInput>;
   curies?: Maybe<Wordpress__Post_LinksCuriesFilterListInput>;
   wp_featuredmedia?: Maybe<Wordpress__Post_LinksWp_FeaturedmediaFilterListInput>;
+};
+
+export type Wordpress__Post_LinksPredecessor_Version = {
+  wordpress_id?: Maybe<Scalars['Int']>;
+  href?: Maybe<Scalars['String']>;
+};
+
+export type Wordpress__Post_LinksPredecessor_VersionFilterInput = {
+  wordpress_id?: Maybe<IntQueryOperatorInput>;
+  href?: Maybe<StringQueryOperatorInput>;
+};
+
+export type Wordpress__Post_LinksPredecessor_VersionFilterListInput = {
+  elemMatch?: Maybe<Wordpress__Post_LinksPredecessor_VersionFilterInput>;
 };
 
 export type Wordpress__Post_LinksReplies = {
@@ -2986,6 +3324,9 @@ export type Wordpress__PostFieldsEnum =
   '_links___version_history' |
   '_links___version_history___count' |
   '_links___version_history___href' |
+  '_links___predecessor_version' |
+  '_links___predecessor_version___wordpress_id' |
+  '_links___predecessor_version___href' |
   '_links___wp_attachment' |
   '_links___wp_attachment___href' |
   '_links___wp_term' |
